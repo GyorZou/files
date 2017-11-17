@@ -52,6 +52,7 @@
 		4C31B7711FBD958E00D01C7E /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B75D1FBD958D00D01C7E /* UIScrollView+MJRefresh.m */; };
 		4C31B7721FBD958E00D01C7E /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B75F1FBD958D00D01C7E /* UIView+MJExtension.m */; };
 		4C31B7751FBD9DFF00D01C7E /* StoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */; };
+		4C31B7781FBEDC7B00D01C7E /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,8 @@
 		4C31B75F1FBD958D00D01C7E /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		4C31B7731FBD9DFF00D01C7E /* StoreTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreTableViewController.h; sourceTree = "<group>"; };
 		4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreTableViewController.m; sourceTree = "<group>"; };
+		4C31B7761FBEDC7B00D01C7E /* MyTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
+		4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +198,8 @@
 				4C31B7121FBD72FA00D01C7E /* DataTableViewController.m */,
 				4C31B7731FBD9DFF00D01C7E /* StoreTableViewController.h */,
 				4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */,
+				4C31B7761FBEDC7B00D01C7E /* MyTableViewController.h */,
+				4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */,
 				4C31B71A1FBD76AA00D01C7E /* HeroTableViewCell.h */,
 				4C31B71B1FBD76AA00D01C7E /* HeroTableViewCell.m */,
 				4C31B71C1FBD76AA00D01C7E /* HeroTableViewCell.xib */,
@@ -434,6 +439,7 @@
 				4C31B7751FBD9DFF00D01C7E /* StoreTableViewController.m in Sources */,
 				4C31B7691FBD958E00D01C7E /* MJRefreshBackNormalFooter.m in Sources */,
 				4C31B7721FBD958E00D01C7E /* UIView+MJExtension.m in Sources */,
+				4C31B7781FBEDC7B00D01C7E /* MyTableViewController.m in Sources */,
 				4C31B7631FBD958E00D01C7E /* MJRefreshFooter.m in Sources */,
 				4C31B7641FBD958E00D01C7E /* MJRefreshHeader.m in Sources */,
 				4C31B7071FBD499E00D01C7E /* XPathQuery.m in Sources */,

@@ -55,8 +55,8 @@
     NSString * url =[NSString stringWithFormat:@"https://hero.jin10.com/#/personal_center/%@",hereo.uid];
     NSURLRequest * req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:1 timeoutInterval:30];
     [_webView loadRequest:req];
-    //_webView.navigationDelegate = self;
-   _webView.delegate = self;
+    _webView.navigationDelegate = self;
+   //_webView.delegate = self;
     
 }
 
@@ -92,16 +92,16 @@
     _initialCount++;
     
     JSWebView * webView = _webView;
-    NSString * value = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
-     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-       [self handleHtml:value];
-     });
-//    [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            [self handleHtml:html];
-//        });
-//
-//    }];
+//    NSString * value = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+//     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//       [self handleHtml:value];
+//     });
+    [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [self handleHtml:html];
+        });
+
+    }];
 
 
     

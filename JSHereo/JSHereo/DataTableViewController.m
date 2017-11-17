@@ -25,6 +25,7 @@
     
     NSMutableDictionary * _lastInfo;
     NSCalendar * _myCalendar;
+    NSMutableArray * _hereoIds;
 }
 @end
 
@@ -40,6 +41,11 @@
     myCalendar.timeZone = [NSTimeZone systemTimeZone];
     _myCalendar = myCalendar;
     
+    NSUserDefaults * def= [NSUserDefaults standardUserDefaults];
+    
+    NSString * ids = [def objectForKey:@"hereos"];
+  
+    _hereoIds = [NSMutableArray array];
     
     //763985_15461
     // Uncomment the following line to preserve selection between presentations.
@@ -69,7 +75,20 @@
     
     _mySelf = ls;
     
-    [self addHero:@"752318_14154"];
+    
+
+    
+    NSArray * temp =  [ids componentsSeparatedByString:@","];
+    for(NSString * s in temp){
+        if (s.length ==0) {
+            continue;
+        }
+        [self addHero:s];
+    }
+    
+    if (temp.count == 0) {
+        [self addHero:@"752318_14154"];
+    }
     
     //[self addHero:@"688479_10597"];高平
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -159,6 +178,10 @@
    
 }
 -(void)addHero:(NSString*)hid{
+    if ([_hereoIds containsObject:hid]) {
+        [NWFToastView showToast:@"id重复"];
+        return;
+    }
     if ([hid componentsSeparatedByString:@"_"].count !=2) {
         [NWFToastView showToast:@"id不合法"];
         return;
@@ -171,6 +194,12 @@
     [_hereoes addObject:ls];
     ls.delegate = self;
     [self.tableView reloadData];
+    
+    [_hereoIds addObject:hid];
+    NSString * ids =  [_hereoIds componentsJoinedByString:@","];
+    NSUserDefaults * def =[NSUserDefaults standardUserDefaults];
+    [def setObject:ids forKey:@"hereos"];
+    [def synchronize];
 }
 
 
@@ -197,6 +226,13 @@
         return _hereoes.count;
     }
     return _businesses.count;
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
 }
 
 
@@ -263,25 +299,36 @@
     return @"消息列表";
     
 }
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (indexPath.section == 0 && indexPath.row!=0) {
+        return YES;
+    }
+    return NO;
 }
-*/
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+       //删除行
+        [_hereoIds removeObjectAtIndex:indexPath.row -1];
+        NSString * ids =  [_hereoIds componentsJoinedByString:@","];
+        NSUserDefaults * def =[NSUserDefaults standardUserDefaults];
+        [def setObject:ids forKey:@"hereos"];
+        [def synchronize];
+        
+        JSHereoListhener * ls = _hereoes[indexPath.row];
+        [ls stop];
+        [_hereoes removeObjectAtIndex:indexPath.row];
+        
+        
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -412,10 +459,12 @@
 }
 -(BOOL)isWorkDay
 {
-    return YES;
+    
     NSDate * date = [NSDate dateWithTimeIntervalSinceNow:-6*60*60];
     
     NSInteger week = [[_myCalendar components:NSCalendarUnitWeekday fromDate:date] weekday];
+    
+    
     return week!=1 && week!=7;;
 }
 -(void)writeBusinessToLocal

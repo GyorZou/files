@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-
-@interface JSWebView : UIWebView
+@interface JSWebView : WKWebView
+//@interface JSWebView : UIWebView
 
 @end
