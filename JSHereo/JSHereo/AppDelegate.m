@@ -38,7 +38,9 @@
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     
-   
+    UIApplication *app = [UIApplication sharedApplication];
+    // 应用程序右上角数字
+    app.applicationIconBadgeNumber = 0;
     return YES;
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -75,6 +77,9 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    UIApplication *app = [UIApplication sharedApplication];
+    // 应用程序右上角数字
+    app.applicationIconBadgeNumber = 0;
 }
 
 

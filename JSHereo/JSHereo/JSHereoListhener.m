@@ -93,13 +93,16 @@
     
     JSWebView * webView = _webView;
     NSString * value = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
-    [self handleHtml:value];
+     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       [self handleHtml:value];
+     });
 //    [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
 //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //            [self handleHtml:html];
 //        });
 //
 //    }];
+
 
     
    

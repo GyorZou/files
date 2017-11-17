@@ -24,6 +24,7 @@
     NSArray * _lastBs;
     
     NSMutableDictionary * _lastInfo;
+    NSCalendar * _myCalendar;
 }
 @end
 
@@ -34,6 +35,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSCalendar * myCalendar = [NSCalendar currentCalendar];
+    myCalendar.timeZone = [NSTimeZone systemTimeZone];
+    _myCalendar = myCalendar;
+    
+    
     //763985_15461
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -64,7 +71,7 @@
     
     [self addHero:@"752318_14154"];
     
-    [self addHero:@"688479_10597"];
+    //[self addHero:@"688479_10597"];高平
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         [self loadData];
@@ -323,7 +330,7 @@
 -(void)listhernerDidUpdate:(JSHereoListhener *)ls
 {
     //前提是工作日且持仓大于0
-    if(ls.hereo.businesses.count >0){
+    if(ls.hereo.businesses.count >0 && [self isWorkDay]){
      if (ls.heartBeat==2) {//连续40秒无数据刷新发通知
         [self sendLocalNoti:@"心跳太低，是否网络故障？"];
      }else if (ls.heartBeat == 0){//强制reload网页
@@ -405,8 +412,11 @@
 }
 -(BOOL)isWorkDay
 {
-    
     return YES;
+    NSDate * date = [NSDate dateWithTimeIntervalSinceNow:-6*60*60];
+    
+    NSInteger week = [[_myCalendar components:NSCalendarUnitWeekday fromDate:date] weekday];
+    return week!=1 && week!=7;;
 }
 -(void)writeBusinessToLocal
 {
