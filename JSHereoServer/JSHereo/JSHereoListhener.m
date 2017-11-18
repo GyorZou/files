@@ -13,14 +13,14 @@
 #import "TFHpple.h"
 #import "TFHppleElement.h"
 
-
+#import "JSUIWebView.h"
+#import "JSWKWebView.h"
 #define  BEATSNUM 10
 @interface JSHereoListhener()<UIWebViewDelegate,WKNavigationDelegate>
 {
     JSWebView * _webView;
     JShereo * _hereo;
-    float _isOn;
-    NSTimer * _timer;
+
     int _initialCount;
 }
 @end
@@ -28,9 +28,7 @@
 @implementation JSHereoListhener
 -(void)stop
 {
-    _isOn = NO;
-    [_timer invalidate];
-    _timer = nil;
+    [_webView stop];
     _heartBeat = BEATSNUM;
     _initialCount = 0;
 }
@@ -38,71 +36,42 @@
 {
    
     [self stop];
-    
-    _isOn = YES;
+
     _hereo = hereo;
    
     _hereo.businesses = nil;
  
     
     if (_webView == nil) {
-        JSWebView * web = [[JSWebView alloc] initWithFrame:CGRectZero];
+        //wk
+        //JSWebView * web = [[JSWKWebView alloc] initWithFrame:CGRectZero];
         
+        //uiwev
+        JSWebView * web = [[JSUIWebView alloc] initWithFrame:CGRectZero];
+        
+
         _webView = web;
     }
 
 
     NSString * url =[NSString stringWithFormat:@"https://hero.jin10.com/#/personal_center/%@",hereo.uid];
     NSURLRequest * req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:1 timeoutInterval:30];
-    [_webView loadRequest:req];
-    //_webView.navigationDelegate = self;
-   _webView.delegate = self;
+    
+    [_webView loadRequest:req completion:^(NSError *err, NSString *html) {
+        [self readWebDoc:html];
+    }];
+    
     
 }
 
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
-    [_timer invalidate];
-    
-    _timer = [NSTimer scheduledTimerWithTimeInterval:[JSConfig flushInterval] target:self selector:@selector(readWebDoc) userInfo:nil repeats:YES];
-    
-    [self readWebDoc];
-    NSLog(@"end load");
-    
-}
 
--(void)webViewDidStartLoad:(UIWebView *)webView
-{
-    NSLog(@"start load");
-}
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
 
-    [_timer invalidate];
-    
-    _timer = [NSTimer scheduledTimerWithTimeInterval:[JSConfig flushInterval] target:self selector:@selector(readWebDoc) userInfo:nil repeats:YES];
-    
-    [self readWebDoc];
-    NSLog(@"end load");
-
-}
--(void)readWebDoc
+-(void)readWebDoc:(NSString*)html
 {
     
     _initialCount++;
     
-    JSWebView * webView = _webView;
-    NSString * value = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
-     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-       [self handleHtml:value];
-     });
-//    [webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            [self handleHtml:html];
-//        });
-//
-//    }];
-
+    [self handleHtml:html];
 
     
    
@@ -234,17 +203,6 @@
         }
     });
 
-    
-}
--(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"web error ");
-    
-}
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    NSLog(@"loading web req:%@",request.URL.absoluteString);
-    return YES;
     
 }
 

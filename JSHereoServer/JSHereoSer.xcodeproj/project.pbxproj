@@ -53,6 +53,8 @@
 		4C31B7721FBD958E00D01C7E /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B75F1FBD958D00D01C7E /* UIView+MJExtension.m */; };
 		4C31B7751FBD9DFF00D01C7E /* StoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */; };
 		4C31B7781FBEDC7B00D01C7E /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */; };
+		52BEFB151FC08A2400A44962 /* JSUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BEFB111FC08A2400A44962 /* JSUIWebView.m */; };
+		52BEFB161FC08A2400A44962 /* JSWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BEFB131FC08A2400A44962 /* JSWKWebView.m */; };
 		52E10F7E1FBFEB8F002E288D /* HyphenateLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E10F7D1FBFEB8F002E288D /* HyphenateLite.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		52E10F7F1FBFEFA2002E288D /* HyphenateLite.framework in Resources */ = {isa = PBXBuildFile; fileRef = 52E10F7D1FBFEB8F002E288D /* HyphenateLite.framework */; };
 		52E10F821FC00B81002E288D /* ConversationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E10F811FC00B81002E288D /* ConversationManager.m */; };
@@ -173,6 +175,10 @@
 		4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreTableViewController.m; sourceTree = "<group>"; };
 		4C31B7761FBEDC7B00D01C7E /* MyTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
 		4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
+		52BEFB111FC08A2400A44962 /* JSUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSUIWebView.m; sourceTree = "<group>"; };
+		52BEFB121FC08A2400A44962 /* JSWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSWKWebView.h; sourceTree = "<group>"; };
+		52BEFB131FC08A2400A44962 /* JSWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSWKWebView.m; sourceTree = "<group>"; };
+		52BEFB141FC08A2400A44962 /* JSUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSUIWebView.h; sourceTree = "<group>"; };
 		52E10F7C1FBFEA84002E288D /* JSHereoSer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JSHereoSer.entitlements; sourceTree = "<group>"; };
 		52E10F7D1FBFEB8F002E288D /* HyphenateLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HyphenateLite.framework; sourceTree = "<group>"; };
 		52E10F801FC00B81002E288D /* ConversationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationManager.h; sourceTree = "<group>"; };
@@ -243,6 +249,10 @@
 				4C31B6F61FBD33AD00D01C7E /* JSWebView.m */,
 				4C31B6FB1FBD369F00D01C7E /* JSHereoListhener.h */,
 				4C31B6FC1FBD369F00D01C7E /* JSHereoListhener.m */,
+				52BEFB141FC08A2400A44962 /* JSUIWebView.h */,
+				52BEFB111FC08A2400A44962 /* JSUIWebView.m */,
+				52BEFB121FC08A2400A44962 /* JSWKWebView.h */,
+				52BEFB131FC08A2400A44962 /* JSWKWebView.m */,
 				4C31B70E1FBD5A0100D01C7E /* JSConfig.h */,
 				4C31B70F1FBD5A0100D01C7E /* JSConfig.m */,
 				4C31B7111FBD72FA00D01C7E /* DataTableViewController.h */,
@@ -501,6 +511,7 @@
 				4C31B6F71FBD33AD00D01C7E /* JSWebView.m in Sources */,
 				4C31B7611FBD958E00D01C7E /* MJRefreshBackFooter.m in Sources */,
 				4C31B6E41FBD331E00D01C7E /* ViewController.m in Sources */,
+				52BEFB161FC08A2400A44962 /* JSWKWebView.m in Sources */,
 				4C31B7751FBD9DFF00D01C7E /* StoreTableViewController.m in Sources */,
 				4C31B7691FBD958E00D01C7E /* MJRefreshBackNormalFooter.m in Sources */,
 				4C31B7721FBD958E00D01C7E /* UIView+MJExtension.m in Sources */,
@@ -521,6 +532,7 @@
 				4C31B7671FBD958E00D01C7E /* MJRefreshAutoStateFooter.m in Sources */,
 				4C31B6E11FBD331E00D01C7E /* AppDelegate.m in Sources */,
 				4C31B76D1FBD958E00D01C7E /* MJRefreshStateHeader.m in Sources */,
+				52BEFB151FC08A2400A44962 /* JSUIWebView.m in Sources */,
 				4C31B76B1FBD958E00D01C7E /* MJRefreshGifHeader.m in Sources */,
 				4C31B7701FBD958E00D01C7E /* UIScrollView+MJExtension.m in Sources */,
 				4C31B7311FBD94C800D01C7E /* MBProgressHUD.m in Sources */,

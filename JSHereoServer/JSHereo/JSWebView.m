@@ -17,5 +17,13 @@
     // Drawing code
 }
 */
-
+-(void)stop
+{
+    [_timer invalidate];
+    _timer = nil;
+}
+-(void)loadRequest:(NSURLRequest *)request completion:(void (^)(NSError *, NSString *))blk
+{
+    
+}
 @end
