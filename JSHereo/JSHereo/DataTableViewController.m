@@ -14,7 +14,7 @@
 #import "MJRefresh.h"
 #import "StoreTableViewController.h"
 #define  TIPLEVEL 50
-#define TIPCOUNT 100
+#define TIPCOUNT 2
 @interface DataTableViewController ()<JSHereoDelegate>
 {
     NSMutableArray * _businesses;
@@ -380,7 +380,7 @@
     if(ls.hereo.businesses.count >0 && [self isWorkDay]){
      if (ls.heartBeat==2) {//连续40秒无数据刷新发通知
         [self sendLocalNoti:@"心跳太低，是否网络故障？"];
-     }else if (ls.heartBeat == 0){//强制reload网页
+     }else if (ls.heartBeat <= 0){//强制reload网页
         [ls startListhenHereo:ls.hereo];
      }
     }
@@ -404,10 +404,20 @@
                 //判断盈亏金额
                 int lastF = ABS(lb.floatBenifit.floatValue)/TIPLEVEL;
                 int nowF = ABS(bu.floatBenifit.floatValue)/TIPLEVEL;
+                
+                //正负10元特别提示
+                //其他的按50每档提示
+                
+                if(lb.floatBenifit.floatValue < 10 && bu.floatBenifit.floatValue> 10 ){
+                    NSString * name = [NSString stringWithFormat:@"%@ %@ 盈利超过  10元",bu.productName,bu.isBuy?@"买单":@"卖单"];
+                    [self sendLocalNoti:name];
+                }
+                
+                
                 if(lastF != nowF && nowF > 0){
                     
                     if (bu.floatBenifit.floatValue>0) {
-                        NSString * name = [NSString stringWithFormat:@"%@ %@ 盈利超过  %d",bu.productName,bu.isBuy?@"买单":@"卖单",TIPLEVEL];
+                        NSString * name = [NSString stringWithFormat:@"%@ %@ 盈利超过  %d",bu.productName,bu.isBuy?@"买单":@"卖单",TIPLEVEL*nowF];
                         [self sendLocalNoti:name];
                     }else{
                       
