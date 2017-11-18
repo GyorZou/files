@@ -146,8 +146,13 @@
     }];
     _heroNames = [NSMutableDictionary dictionaryWithCapacity:0];
     [_heroNames setObject:@"李先生" forKey:@"744891_15246"];
+    //744891_15065
+    [_heroNames setObject:@"先生666" forKey:@"744891_15065"];
     [_heroNames setObject:@"高频" forKey:@"688479_10597"];
     [_heroNames setObject:@"盈利为先" forKey:@"752318_14154"];
+    
+    [_heroNames setObject:@"AMP资管一号" forKey:@"330344_7743"];
+
     
     _msgs = [NSMutableArray arrayWithCapacity:0];
 }

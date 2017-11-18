@@ -53,6 +53,9 @@
 		4C31B7721FBD958E00D01C7E /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B75F1FBD958D00D01C7E /* UIView+MJExtension.m */; };
 		4C31B7751FBD9DFF00D01C7E /* StoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */; };
 		4C31B7781FBEDC7B00D01C7E /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */; };
+		52E10F931FC06AC1002E288D /* product.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52E10F921FC06AC1002E288D /* product.plist */; };
+		52E10F961FC07608002E288D /* JSUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E10F951FC07608002E288D /* JSUIWebView.m */; };
+		52E10F991FC07632002E288D /* JSWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E10F981FC07632002E288D /* JSWKWebView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -141,6 +144,11 @@
 		4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreTableViewController.m; sourceTree = "<group>"; };
 		4C31B7761FBEDC7B00D01C7E /* MyTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
 		4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
+		52E10F921FC06AC1002E288D /* product.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = product.plist; sourceTree = "<group>"; };
+		52E10F941FC07608002E288D /* JSUIWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSUIWebView.h; sourceTree = "<group>"; };
+		52E10F951FC07608002E288D /* JSUIWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSUIWebView.m; sourceTree = "<group>"; };
+		52E10F971FC07632002E288D /* JSWKWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSWKWebView.h; sourceTree = "<group>"; };
+		52E10F981FC07632002E288D /* JSWKWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSWKWebView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +166,7 @@
 		4C31B6D31FBD331E00D01C7E = {
 			isa = PBXGroup;
 			children = (
+				52E10F921FC06AC1002E288D /* product.plist */,
 				4C31B6DE1FBD331E00D01C7E /* JSHereo */,
 				4C31B6DD1FBD331E00D01C7E /* Products */,
 				4C31B7081FBD49DE00D01C7E /* Frameworks */,
@@ -190,6 +199,10 @@
 				4C31B70C1FBD523900D01C7E /* JSBusiness.m */,
 				4C31B6F51FBD33AD00D01C7E /* JSWebView.h */,
 				4C31B6F61FBD33AD00D01C7E /* JSWebView.m */,
+				52E10F941FC07608002E288D /* JSUIWebView.h */,
+				52E10F951FC07608002E288D /* JSUIWebView.m */,
+				52E10F971FC07632002E288D /* JSWKWebView.h */,
+				52E10F981FC07632002E288D /* JSWKWebView.m */,
 				4C31B6FB1FBD369F00D01C7E /* JSHereoListhener.h */,
 				4C31B6FC1FBD369F00D01C7E /* JSHereoListhener.m */,
 				4C31B70E1FBD5A0100D01C7E /* JSConfig.h */,
@@ -413,6 +426,7 @@
 				4C31B7321FBD94C800D01C7E /* README.mdown in Resources */,
 				4C31B71E1FBD76AA00D01C7E /* HeroTableViewCell.xib in Resources */,
 				4C31B7231FBD76BC00D01C7E /* NoticesTableViewCell.xib in Resources */,
+				52E10F931FC06AC1002E288D /* product.plist in Resources */,
 				4C31B76E1FBD958E00D01C7E /* MJRefresh.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,6 +459,7 @@
 				4C31B7071FBD499E00D01C7E /* XPathQuery.m in Sources */,
 				4C31B7661FBD958E00D01C7E /* MJRefreshAutoNormalFooter.m in Sources */,
 				4C31B72A1FBD944100D01C7E /* NWFToastView.m in Sources */,
+				52E10F961FC07608002E288D /* JSUIWebView.m in Sources */,
 				4C31B7051FBD499E00D01C7E /* TFHpple.m in Sources */,
 				4C31B76F1FBD958E00D01C7E /* MJRefreshConst.m in Sources */,
 				4C31B71D1FBD76AA00D01C7E /* HeroTableViewCell.m in Sources */,
@@ -453,6 +468,7 @@
 				4C31B7711FBD958E00D01C7E /* UIScrollView+MJRefresh.m in Sources */,
 				4C31B70D1FBD523900D01C7E /* JSBusiness.m in Sources */,
 				4C31B7671FBD958E00D01C7E /* MJRefreshAutoStateFooter.m in Sources */,
+				52E10F991FC07632002E288D /* JSWKWebView.m in Sources */,
 				4C31B6E11FBD331E00D01C7E /* AppDelegate.m in Sources */,
 				4C31B76D1FBD958E00D01C7E /* MJRefreshStateHeader.m in Sources */,
 				4C31B76B1FBD958E00D01C7E /* MJRefreshGifHeader.m in Sources */,

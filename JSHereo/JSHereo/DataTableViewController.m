@@ -26,6 +26,7 @@
     NSMutableDictionary * _lastInfo;
     NSCalendar * _myCalendar;
     NSMutableArray * _hereoIds;
+    NSMutableDictionary * _heroNames;
 }
 @end
 
@@ -41,9 +42,17 @@
     myCalendar.timeZone = [NSTimeZone systemTimeZone];
     _myCalendar = myCalendar;
     
-    NSUserDefaults * def= [NSUserDefaults standardUserDefaults];
     
-    NSString * ids = [def objectForKey:@"hereos"];
+    _heroNames = [NSMutableDictionary dictionaryWithCapacity:0];
+    [_heroNames setObject:@"李先生" forKey:@"744891_15246"];
+    //744891_15065
+    [_heroNames setObject:@"先生666" forKey:@"744891_15065"];
+    [_heroNames setObject:@"高频" forKey:@"688479_10597"];
+    [_heroNames setObject:@"盈利为先" forKey:@"752318_14154"];
+    
+    [_heroNames setObject:@"AMP资管一号" forKey:@"330344_7743"];
+    
+    
   
     _hereoIds = [NSMutableArray array];
     
@@ -76,21 +85,6 @@
     _mySelf = ls;
     
     
-
-    
-    NSArray * temp =  [ids componentsSeparatedByString:@","];
-    for(NSString * s in temp){
-        if (s.length ==0) {
-            continue;
-        }
-        [self addHero:s];
-    }
-    
-    if (temp.count == 0) {
-        [self addHero:@"752318_14154"];
-    }
-    
-    //[self addHero:@"688479_10597"];高平
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
         [self loadData];
@@ -140,27 +134,55 @@
     
     return [[UIBarButtonItem alloc] initWithCustomView:backBtn];
 }
+-(void)addOtherHero
+{
+    
+     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加英雄" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+     
+     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+     textField.placeholder = @"输入英雄的id";
+     
+     }];
+     UIAlertAction * action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+     UITextField *login = alertController.textFields.firstObject;
+     
+     [self addHero:login.text];
+     
+     }];
+     [alertController addAction:action];
+     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+     
+     }];
+     
+     [alertController addAction:cancelAction];
+     [self presentViewController:alertController animated:YES completion:nil];
+     
+    
+    
+}
 -(void)addHero{
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加英雄" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"选择" message:@"" preferredStyle:0];
+    for (NSString * key in _heroNames.allKeys) {
+        NSString * name = _heroNames[key];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self addHero:key];
+            
+        }];
+        [ac addAction:action];
+    }
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"其他" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self addOtherHero];
+    }];
+    [ac addAction:action];
     
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"输入英雄的id";
+    action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
     }];
-    UIAlertAction * action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        UITextField *login = alertController.textFields.firstObject;
-        
-        [self addHero:login.text];
-       
-    }];
-    [alertController addAction:action];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    [ac addAction:action];
     
-    }];
-    
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:ac animated:YES completion:nil];
     
   
 
@@ -196,10 +218,6 @@
     [self.tableView reloadData];
     
     [_hereoIds addObject:hid];
-    NSString * ids =  [_hereoIds componentsJoinedByString:@","];
-    NSUserDefaults * def =[NSUserDefaults standardUserDefaults];
-    [def setObject:ids forKey:@"hereos"];
-    [def synchronize];
 }
 
 
@@ -353,6 +371,31 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(int)howmany:(JSBusiness*)jb
+{
+    if(_hereoes.count - (_mySelf?1:0) <=1 ){
+        return 0;//只监控了一个人不算
+    }
+    int count = 0;
+    for (JSHereoListhener * ls in _hereoes) {
+        if (ls == _mySelf) {//除自己外，其他人是否购买了同一个产品
+            continue;
+        }
+        NSArray * bs = ls.hereo.businesses;
+        if(bs.count ==0){
+            continue;
+            
+        }
+        for(JSBusiness * b in bs){
+            if ([b.productName isEqual:jb.productName]) {
+                count++;
+                break;
+            }
+        }
+    }
+    
+    return count;
+}
 -(void)listhener:(JSHereoListhener *)ls didAddBusiness:(JSBusiness *)b
 {
      b.isClose = NO;
@@ -509,6 +552,16 @@
     
 
     [self sendLocalNoti:body];
+    
+    
+    int how = [self howmany:jb];
+    if (_hereoes.count > 2) {//包括自己的人数大于2
+        if (how >=3 || how ==_hereoes.count-1) {
+            [self sendLocalNoti:[NSString stringWithFormat:@"注意:有%d个人 %@ %@",how,state,jb.productName]];
+        }
+
+    }
+
 }
 -(void)sendLocalNoti:(NSString*)body
 {

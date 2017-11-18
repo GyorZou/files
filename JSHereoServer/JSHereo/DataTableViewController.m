@@ -518,6 +518,43 @@
     
 
     [self sendLocalNoti:body];
+    
+    
+    
+    int how = [self howmany:jb];
+    if (_hereoes.count - (_mySelf?1:0)> 1) {//不包括自己的人数大于1
+        if (how >=3 || how ==_hereoes.count-1) {
+            [self sendLocalNoti:[NSString stringWithFormat:@"注意:有%d个人 %@ %@",how,state,jb.productName]];
+        }
+        
+    }
+
+    
+}
+-(int)howmany:(JSBusiness*)jb
+{
+    if(_hereoes.count - (_mySelf?1:0) <=1 ){
+        return 0;//只监控了一个人不算
+    }
+    int count = 0;
+    for (JSHereoListhener * ls in _hereoes) {
+        if (ls == _mySelf) {//除自己外，其他人是否购买了同一个产品
+            continue;
+        }
+        NSArray * bs = ls.hereo.businesses;
+        if(bs.count ==0){
+            continue;
+            
+        }
+        for(JSBusiness * b in bs){
+            if ([b.productName isEqual:jb.productName]) {
+                count++;
+                break;
+            }
+        }
+    }
+    
+    return count;
 }
 -(void)sendLocalNoti:(NSString*)body1
 {

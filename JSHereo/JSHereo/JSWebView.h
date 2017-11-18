@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 //@interface JSWebView : WKWebView
-@interface JSWebView : UIWebView
+@interface JSWebView : UIView
 
+{
+    NSTimer * _timer;
+    void (^_blk)(NSError*err,NSString*);
+}
+-(void)stop;
+-(void)loadRequest:(NSURLRequest *)request completion:(void(^)(NSError*err,NSString*html))blk;
 @end
