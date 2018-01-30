@@ -28,10 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
   
-    _ls = [[JSHereoListhener alloc] init];
-    JShereo * h = [[JShereo alloc] init];
-    h.uid = @"752318_14154";
-    [_ls startListhenHereo:h];
+
 }
 
 - (void)didReceiveMemoryWarning {

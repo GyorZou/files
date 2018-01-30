@@ -24,6 +24,7 @@
         _manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
         _manager.distanceFilter = 100.0f;
         [_manager startUpdatingLocation];
+        [self.manager requestAlwaysAuthorization];
         if ([_manager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
             _manager.allowsBackgroundLocationUpdates = YES;
         }
@@ -41,6 +42,7 @@
     UIApplication *app = [UIApplication sharedApplication];
     // 应用程序右上角数字
     app.applicationIconBadgeNumber = 0;
+    _priceWatcher = [NSMutableDictionary dictionaryWithCapacity:0];
     return YES;
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -56,7 +58,8 @@
             
         case kCLAuthorizationStatusNotDetermined:
             if ([self.manager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                [self.manager requestWhenInUseAuthorization];
+               // [self.manager requestWhenInUseAuthorization];
+                [self.manager requestAlwaysAuthorization];
             }break;
         default:break;
     }

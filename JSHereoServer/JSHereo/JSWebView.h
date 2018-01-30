@@ -12,9 +12,12 @@
 @interface JSWebView : UIView
 
 {
+    NSURLRequest * _request;
     NSTimer * _timer;
     void (^_blk)(NSError*err,NSString*);
 }
+@property (nonatomic,assign) BOOL readNow;
+
 -(void)stop;
 -(void)loadRequest:(NSURLRequest *)request completion:(void(^)(NSError*err,NSString*html))blk;
 @end

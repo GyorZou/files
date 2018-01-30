@@ -44,10 +44,10 @@
     
     if (_webView == nil) {
         //wk
-        //JSWebView * web = [[JSWKWebView alloc] initWithFrame:CGRectZero];
+        JSWebView * web = [[JSWKWebView alloc] initWithFrame:CGRectZero];
         
         //uiwev
-        JSWebView * web = [[JSUIWebView alloc] initWithFrame:CGRectZero];
+      //  JSWebView * web = [[JSUIWebView alloc] initWithFrame:CGRectZero];
         
 
         _webView = web;
@@ -57,8 +57,9 @@
     NSString * url =[NSString stringWithFormat:@"https://hero.jin10.com/#/personal_center/%@",hereo.uid];
     NSURLRequest * req = [NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:1 timeoutInterval:30];
     
+    __weak typeof(self) ws = self;
     [_webView loadRequest:req completion:^(NSError *err, NSString *html) {
-        [self readWebDoc:html];
+        [ws readWebDoc:html];
     }];
     
     

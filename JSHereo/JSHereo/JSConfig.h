@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface JSConfig : NSObject
+
++(NSUInteger)tipMoney;
++(void)setTipMoney:(NSUInteger)money;
+
 +(NSUInteger)reloadInterval;//重刷url间隔
 +(NSUInteger)flushInterval;//读取url文件间隔
+
+
+
+
 @end

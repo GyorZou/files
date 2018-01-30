@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C202EB71FC57030005CBDE2 /* JSTipDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C202EB51FC5702F005CBDE2 /* JSTipDescriptor.m */; };
 		4C31B6E11FBD331E00D01C7E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B6E01FBD331E00D01C7E /* AppDelegate.m */; };
 		4C31B6E41FBD331E00D01C7E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C31B6E31FBD331E00D01C7E /* ViewController.m */; };
 		4C31B6E71FBD331E00D01C7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C31B6E51FBD331E00D01C7E /* Main.storyboard */; };
@@ -59,6 +60,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C202EB51FC5702F005CBDE2 /* JSTipDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTipDescriptor.m; sourceTree = "<group>"; };
+		4C202EB61FC5702F005CBDE2 /* JSTipDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTipDescriptor.h; sourceTree = "<group>"; };
 		4C31B6DC1FBD331E00D01C7E /* JSHereo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSHereo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C31B6DF1FBD331E00D01C7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C31B6E01FBD331E00D01C7E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -144,6 +147,7 @@
 		4C31B7741FBD9DFF00D01C7E /* StoreTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreTableViewController.m; sourceTree = "<group>"; };
 		4C31B7761FBEDC7B00D01C7E /* MyTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
 		4C31B7771FBEDC7B00D01C7E /* MyTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
+		4C41C5E61FCBA49F0082349B /* JSHereo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "JSHereo copy-Info.plist"; path = "/Users/crv/Desktop/GitProjects/myfiles/JSHereo/JSHereo copy-Info.plist"; sourceTree = "<absolute>"; };
 		52E10F921FC06AC1002E288D /* product.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = product.plist; sourceTree = "<group>"; };
 		52E10F941FC07608002E288D /* JSUIWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSUIWebView.h; sourceTree = "<group>"; };
 		52E10F951FC07608002E288D /* JSUIWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSUIWebView.m; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				4C31B6DE1FBD331E00D01C7E /* JSHereo */,
 				4C31B6DD1FBD331E00D01C7E /* Products */,
 				4C31B7081FBD49DE00D01C7E /* Frameworks */,
+				4C41C5E61FCBA49F0082349B /* JSHereo copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,6 +210,8 @@
 				52E10F981FC07632002E288D /* JSWKWebView.m */,
 				4C31B6FB1FBD369F00D01C7E /* JSHereoListhener.h */,
 				4C31B6FC1FBD369F00D01C7E /* JSHereoListhener.m */,
+				4C202EB61FC5702F005CBDE2 /* JSTipDescriptor.h */,
+				4C202EB51FC5702F005CBDE2 /* JSTipDescriptor.m */,
 				4C31B70E1FBD5A0100D01C7E /* JSConfig.h */,
 				4C31B70F1FBD5A0100D01C7E /* JSConfig.m */,
 				4C31B7111FBD72FA00D01C7E /* DataTableViewController.h */,
@@ -473,6 +480,7 @@
 				4C31B76D1FBD958E00D01C7E /* MJRefreshStateHeader.m in Sources */,
 				4C31B76B1FBD958E00D01C7E /* MJRefreshGifHeader.m in Sources */,
 				4C31B7701FBD958E00D01C7E /* UIScrollView+MJExtension.m in Sources */,
+				4C202EB71FC57030005CBDE2 /* JSTipDescriptor.m in Sources */,
 				4C31B7311FBD94C800D01C7E /* MBProgressHUD.m in Sources */,
 				4C31B7601FBD958E00D01C7E /* MJRefreshAutoFooter.m in Sources */,
 				4C31B76A1FBD958E00D01C7E /* MJRefreshBackStateFooter.m in Sources */,

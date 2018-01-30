@@ -12,7 +12,7 @@
 #import "NoticesTableViewCell.h"
 #import "NWFToastView.h"
 #import "MJRefresh.h"
-#import "StoreTableViewController.h"
+#import "CurStoreTableViewController.h"
 #import <HyphenateLite/HyphenateLite.h>
 #import "ConversationManager.h"
 #import "MessegeTool.h"
@@ -81,17 +81,18 @@
    
     
     //[self addHero:@"688479_10597"];高平
+    __weak typeof(self) ws =self;
     MJRefreshNormalHeader *header=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        [self loadData];
+        [ws loadData];
         
     }];
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.header =header;
     
-    self.navigationItem.leftBarButtonItem = [self backItem];
+    //self.navigationItem.leftBarButtonItem = [self backItem];
   
-  //  self.navigationItem.rightBarButtonItem = [self rightItem];
+    self.navigationItem.rightBarButtonItem = [self backItem];
     
     
     [ConversationManager login:@"10086" pwd:@"qwe123" completion:^(BOOL isSuc) {
@@ -101,6 +102,9 @@
         }else{
             //注册消息回调
             [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+            
+           AppDelegate * app =  (AppDelegate*)[UIApplication sharedApplication].delegate ;
+            [app bindToken];
             
         }
     }];
@@ -125,14 +129,18 @@
 {
     UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(0, 0, 50, 30);
-    [backBtn setTitle:@"停止" forState:UIControlStateSelected];
-    [backBtn setTitle:@"开始" forState:UIControlStateNormal];
+    [backBtn setTitle:@"test" forState:UIControlStateSelected];
+    //[backBtn setTitle:@"开始" forState:UIControlStateNormal];
     [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     backBtn.selected = YES;
-    [backBtn addTarget:self action:@selector(toggle:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(testNoti) forControlEvents:UIControlEventTouchUpInside];
     _pauseBtn = backBtn;
 
     return [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+}
+-(void)testNoti{
+    [self sendLocalNoti:@"测试消息"];
+    
 }
 -(UIBarButtonItem *)rightItem
 {
@@ -300,10 +308,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    return;
+
     if (indexPath.section == 0) {
         //跳转到持仓列表
-        StoreTableViewController  *vc = [[StoreTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        CurStoreTableViewController  *vc = [[CurStoreTableViewController alloc] initWithStyle:UITableViewStylePlain];
         vc.hereo = [_hereoes[indexPath.row] hereo];
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -395,10 +403,11 @@
 -(void)listhernerDidUpdate:(JSHereoListhener *)ls
 {
     //前提是工作日且持仓大于0
-    if(ls.hereo.businesses.count >0 && [self isWorkDay]){
+    if( [self isWorkDay]){
      if (ls.heartBeat==2) {//连续40秒无数据刷新发通知
-        [self sendLocalNoti:@"心跳太低，是否网络故障？"];
-     }else if (ls.heartBeat == 0){//强制reload网页
+        //[self sendLocalNoti:@"心跳太低，是否网络故障？"];
+     }else if (ls.heartBeat <= 0){//强制reload网页
+        // ls.heartBeat = 10;
         [ls startListhenHereo:ls.hereo];
      }
     }
@@ -512,6 +521,9 @@
    
     if(jb.isClose == NO){
         state = jb.isBuy?@"买入":@"卖出";
+    }else{
+        
+        state = [NSString  stringWithFormat:@"关闭%@",jb.isBuy?@"买单":@"卖单" ] ;
     }
     //数量：价格为：
     NSString * body = [NSString stringWithFormat:@"%@  %@ %@ 数量：%@手  价格为：%@",jb.userName,state,jb.productName,jb.count,jb.price];
@@ -547,7 +559,7 @@
             
         }
         for(JSBusiness * b in bs){
-            if ([b.productName isEqual:jb.productName]) {
+            if ([b.productName isEqual:jb.productName]&& b.isBuy==jb.isBuy) {
                 count++;
                 break;
             }
@@ -578,7 +590,7 @@
     message.chatType = EMChatTypeChat;// 设置为单聊消息
     
     [[EMClient sharedClient].chatManager  sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-
+        NSLog(@"send error:%@",error.errorDescription);
     }];
     
     

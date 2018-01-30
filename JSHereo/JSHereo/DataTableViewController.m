@@ -12,9 +12,10 @@
 #import "NoticesTableViewCell.h"
 #import "NWFToastView.h"
 #import "MJRefresh.h"
+#import "JSConfig.h"
 #import "StoreTableViewController.h"
-#define  TIPLEVEL 50
-#define TIPCOUNT 2
+#define  TIPLEVEL 10
+#define TIPCOUNT 1
 @interface DataTableViewController ()<JSHereoDelegate>
 {
     NSMutableArray * _businesses;
@@ -47,9 +48,9 @@
     [_heroNames setObject:@"李先生" forKey:@"744891_15246"];
     //744891_15065
     [_heroNames setObject:@"先生666" forKey:@"744891_15065"];
-    [_heroNames setObject:@"高频" forKey:@"688479_10597"];
-    [_heroNames setObject:@"盈利为先" forKey:@"752318_14154"];
-    
+    [_heroNames setObject:@"高频" forKey:@"688479_17273"];
+    //[_heroNames setObject:@"盈利为先" forKey:@"752318_14154"];
+    [_heroNames setObject:@"顶域投资" forKey:@"752318_16822"];
     [_heroNames setObject:@"AMP资管一号" forKey:@"330344_7743"];
     
     
@@ -111,15 +112,43 @@
   
     
 }
+-(void)showTipMoney
+{
+    NSArray * tips = @[@"5",@"10",@"20",@"30",@"40",@"50",@"100"];
+    UIAlertController * ac = [UIAlertController alertControllerWithTitle:@"选择提示" message:@"" preferredStyle:0];
+    NSUInteger u = [JSConfig tipMoney];
+    for (NSString * key in tips) {
+        NSString * name = key;
+        NSUInteger c = [name intValue];
+        
+        if (c == u) {
+            name = [NSString stringWithFormat:@"%@(已选)",key];
+        }
+
+        UIAlertAction *action = [UIAlertAction actionWithTitle:name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [JSConfig setTipMoney:c];
+            
+        }];
+        [ac addAction:action];
+    }
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [ac addAction:action];
+    
+    [self presentViewController:ac animated:YES completion:nil];
+    
+}
 -(UIBarButtonItem *)backItem
 {
     UIButton * backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backBtn.frame = CGRectMake(0, 0, 50, 30);
-    [backBtn setTitle:@"停止" forState:UIControlStateSelected];
-    [backBtn setTitle:@"开始" forState:UIControlStateNormal];
+    [backBtn setTitle:@"设置" forState:UIControlStateSelected];
+
     [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     backBtn.selected = YES;
-    [backBtn addTarget:self action:@selector(toggle:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(showTipMoney) forControlEvents:UIControlEventTouchUpInside];
 
 
     return [[UIBarButtonItem alloc] initWithCustomView:backBtn];
@@ -387,7 +416,7 @@
             
         }
         for(JSBusiness * b in bs){
-            if ([b.productName isEqual:jb.productName]) {
+            if ([b.productName isEqual:jb.productName] && b.isBuy==jb.isBuy) {
                 count++;
                 break;
             }
@@ -420,11 +449,16 @@
 -(void)listhernerDidUpdate:(JSHereoListhener *)ls
 {
     //前提是工作日且持仓大于0
-    if(ls.hereo.businesses.count >0 && [self isWorkDay]){
-     if (ls.heartBeat==2) {//连续40秒无数据刷新发通知
-        [self sendLocalNoti:@"心跳太低，是否网络故障？"];
-     }else if (ls.heartBeat <= 0){//强制reload网页
-        [ls startListhenHereo:ls.hereo];
+    if( [self isWorkDay]){
+     if (ls.hereo.businesses.count >0 && ls.heartBeat==2) {//连续40秒无数据刷新发通知
+        //[self sendLocalNoti:@"心跳太低，是否网络故障？"];
+     }else if (ls.heartBeat <= 0){//如果不是自己,强制reload网页
+         if(ls.hereo.businesses.count ==0 && ls == _mySelf){
+         //自己就不reload
+         }else{
+            [ls startListhenHereo:ls.hereo];
+         }
+        
      }
     }
     
@@ -445,26 +479,28 @@
                 NSUInteger index = [_lastBs indexOfObject:bu];
                 JSBusiness *lb = _lastBs[index];
                 //判断盈亏金额
-                int lastF = ABS(lb.floatBenifit.floatValue)/TIPLEVEL;
-                int nowF = ABS(bu.floatBenifit.floatValue)/TIPLEVEL;
+                NSUInteger u = [JSConfig tipMoney];
+                int lastF = ABS(lb.floatBenifit.floatValue)/u;
+                int nowF = ABS(bu.floatBenifit.floatValue)/u;
                 
                 //正负10元特别提示
                 //其他的按50每档提示
                 
-                if(lb.floatBenifit.floatValue < 10 && bu.floatBenifit.floatValue> 10 ){
-                    NSString * name = [NSString stringWithFormat:@"%@ %@ 盈利超过  10元",bu.productName,bu.isBuy?@"买单":@"卖单"];
-                    [self sendLocalNoti:name];
-                }
+//                if( lb.floatBenifit.floatValue < 10 && bu.floatBenifit.floatValue> 10 ){
+//                    NSString * name = [NSString stringWithFormat:@"%@ %@ 盈利超过  10元",bu.productName,bu.isBuy?@"买单":@"卖单"];
+//                    [self sendLocalNoti:name];
+//                }
                 
                 
                 if(lastF != nowF && nowF > 0){
                     
                     if (bu.floatBenifit.floatValue>0) {
-                        NSString * name = [NSString stringWithFormat:@"%@ %@ 盈利超过  %d",bu.productName,bu.isBuy?@"买单":@"卖单",TIPLEVEL*nowF];
+                        
+                        NSString * name = [NSString stringWithFormat:@"%@ %@手 %@ 盈利  %@",bu.productName,bu.count,bu.isBuy?@"买单":@"卖单",bu.floatBenifit];
                         [self sendLocalNoti:name];
                     }else{
                       
-                        NSString * name = [NSString stringWithFormat:@"%@ %@ 亏损超过  %d",bu.productName,bu.isBuy?@"买单":@"卖单",TIPLEVEL];
+                        NSString * name = [NSString stringWithFormat:@"%@ %@手  %@ 亏损   %@",bu.productName,bu.count,bu.isBuy?@"买单":@"卖单",bu.floatBenifit];
                         [self sendLocalNoti:name];
                     }
                     
@@ -472,12 +508,12 @@
                 }
                 
                 //判断是否转亏专盈
-                int value = [_lastInfo[ids] intValue];
-                int now =  bu.floatBenifit.floatValue;
+                float value = [_lastInfo[ids] floatValue];
+                float now =  bu.floatBenifit.floatValue;
                 
                 if( value * now < 0){//一正一负
                     if (ABS(value) > TIPCOUNT) {//满足提示点
-                        NSString * name = [NSString stringWithFormat:@"%@ %@ %@",bu.productName,bu.isBuy?@"买单":@"卖单",now>0?@"转盈":@"转亏"];
+                        NSString * name = [NSString stringWithFormat:@"%@  %@手   %@ %@ %g元",bu.productName,bu.count,bu.isBuy?@"买单":@"卖单",now>0?@"转盈":@"转亏",now];
                         [self sendLocalNoti:name];
                          value = 0;
                     }else{//不满足，
@@ -547,12 +583,18 @@
    
     if(jb.isClose == NO){
         state = jb.isBuy?@"买入":@"卖出";
+    }else{
+        
+        state = [NSString  stringWithFormat:@"关闭%@ 利润:%@",jb.isBuy?@"买单":@"卖单" ,jb.floatBenifit] ;
     }
-    NSString * body = [NSString stringWithFormat:@"%@  %@ %@",jb.userName,state,jb.productName];
+    NSString * body = [NSString stringWithFormat:@"%@  %@ %@  %@手 ",jb.userName,state,jb.productName,jb.count];
     
 
     [self sendLocalNoti:body];
     
+    if (jb.isClose == YES) {
+        return;
+    }
     
     int how = [self howmany:jb];
     if (_hereoes.count > 2) {//包括自己的人数大于2
@@ -566,6 +608,7 @@
 -(void)sendLocalNoti:(NSString*)body
 {
     [NWFToastView showToast:body];
+    body = [NSString stringWithFormat:@"微商代理:%@",body];
     UILocalNotification *localNotifi = [UILocalNotification new];
     localNotifi.alertBody = body;
     localNotifi.soundName = UILocalNotificationDefaultSoundName;

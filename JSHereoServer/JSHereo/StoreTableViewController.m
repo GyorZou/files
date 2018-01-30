@@ -13,6 +13,7 @@
 #import "NWFToastView.h"
 #import "MessegeTool.h"
 #import "EMMessage+OutTime.h"
+#import "AppDelegate.h"
 @interface StoreTableViewController ()<EMChatManagerDelegate>
 {
     NSMutableDictionary * _heroNames;
@@ -142,18 +143,21 @@
             [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
             self.navigationItem.rightBarButtonItem = [self rightItem];
             self.navigationItem.leftBarButtonItem = [self leftItem];
+            AppDelegate * app =  (AppDelegate*)[UIApplication sharedApplication].delegate ;
+            [app bindToken];
         }
     }];
     _heroNames = [NSMutableDictionary dictionaryWithCapacity:0];
     [_heroNames setObject:@"李先生" forKey:@"744891_15246"];
     //744891_15065
     [_heroNames setObject:@"先生666" forKey:@"744891_15065"];
-    [_heroNames setObject:@"高频" forKey:@"688479_10597"];
-    [_heroNames setObject:@"盈利为先" forKey:@"752318_14154"];
-    
+    [_heroNames setObject:@"高频" forKey:@"688479_17273"];
+   // [_heroNames setObject:@"盈利为先" forKey:@"752318_14154"];
+    [_heroNames setObject:@"顶域投资" forKey:@"752318_16822"];
     [_heroNames setObject:@"AMP资管一号" forKey:@"330344_7743"];
+    //758539_14872
 
-    
+    [_heroNames setObject:@"vikingpower" forKey:@"758539_14872"];
     _msgs = [NSMutableArray arrayWithCapacity:0];
 }
 
@@ -200,7 +204,7 @@
         [ac addAction:action];
     }
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"其他" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
+        [self addOther];
     }];
     [ac addAction:action];
     
@@ -211,6 +215,31 @@
     
     [self presentViewController:ac animated:YES completion:nil];
     
+}
+-(void)addOther
+{
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"添加英雄" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"输入英雄的id";
+            
+        }];
+        UIAlertAction * action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            UITextField *login = alertController.textFields.firstObject;
+            
+            [self requirePushFor:login.text];
+            
+        }];
+        [alertController addAction:action];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+
 }
 -(UIBarButtonItem *)leftItem
 {

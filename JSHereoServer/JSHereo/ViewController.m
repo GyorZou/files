@@ -14,11 +14,12 @@
 #import "TFHpple.h"
 #import "TFHppleElement.h"
 #import "JSHereoListhener.h"
+#import "JSPriceListhner.h"
 @interface ViewController ()<UIWebViewDelegate>
 {
     JSContext * _context;
     JSHereoListhener * _ls;
-    
+    JSPriceListhner * _jp;
 }
 @end
 
@@ -28,10 +29,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
   
-    _ls = [[JSHereoListhener alloc] init];
-    JShereo * h = [[JShereo alloc] init];
-    h.uid = @"752318_14154";
-    [_ls startListhenHereo:h];
+//    _jp = [[JSPriceListhner alloc] init];
+//    
+//    [_jp startWithDataHandler:^(NSArray * arr) {
+//        
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {
