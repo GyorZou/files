@@ -29,21 +29,36 @@
     _timer = nil;
     _webView.delegate = self;
     [_webView loadRequest:request];
-}
-
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
+    _request = request;
     
+    if (self.readNow) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self startTimer];
+        });
+    }
+}
+-(void)startTimer{
     [_timer invalidate];
     
     _timer = [NSTimer scheduledTimerWithTimeInterval:[JSConfig flushInterval] target:self selector:@selector(readWebDoc) userInfo:nil repeats:YES];
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    
+    [self startTimer];
     
     [self readWebDoc];
     NSLog(@"end load");
     
 }
 
-
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    if (_webView.request.URL) {
+        
+    }
+    [self loadRequest:_request completion:_blk];
+}
 -(void)readWebDoc
 {
     

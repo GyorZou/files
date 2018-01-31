@@ -7,8 +7,16 @@
 //
 
 #import "JSConfig.h"
-
+static NSUInteger _moneyHome = 10;
 @implementation JSConfig
+
++(NSUInteger)tipMoney
+{
+    return _moneyHome;
+}
++(void)setTipMoney:(NSUInteger)money{
+    _moneyHome = money;
+}
 +(NSUInteger)reloadInterval
 {
     return 10*60;

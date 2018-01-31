@@ -29,21 +29,40 @@
     _timer = nil;
     _webView.navigationDelegate = self;
     [_webView loadRequest:request];
+    _request =request;
+    if (self.readNow) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //[self readWebDoc];
+            [self startTimer];
+        });
+    }
 }
-
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
+-(void)startTimer{
     [_timer invalidate];
     
     _timer = [NSTimer scheduledTimerWithTimeInterval:[JSConfig flushInterval] target:self selector:@selector(readWebDoc) userInfo:nil repeats:YES];
+}
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    
+    [self startTimer];
     
     [self readWebDoc];
-    NSLog(@"end load");
+
+    
+}
+
+-(void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
+{
+    
+    
+    [self loadRequest:_request completion:_blk];
+    
     
 }
 -(void)readWebDoc
 {
-    
+  
     [_webView evaluateJavaScript:@"document.documentElement.innerHTML" completionHandler:^(id _Nullable html, NSError * _Nullable error) {
         if (_blk) {
             _blk(error,html);

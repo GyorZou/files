@@ -11,6 +11,9 @@
 #import <HyphenateLite/HyphenateLite.h>
 #import <UserNotifications/UserNotifications.h>
 @interface AppDelegate () <CLLocationManagerDelegate>
+{
+    NSData * _token;
+}
 @property (nonatomic,strong) CLLocationManager* manager;
 @end
 
@@ -53,7 +56,7 @@
     
     EMOptions *options = [EMOptions optionsWithAppkey:@"1198171118178343#heropush"];
     
-    options.apnsCertName = @"heropush_dev";
+    options.apnsCertName = @"dev";
     EMError * err= [[EMClient sharedClient] initializeSDKWithOptions:options];
     
     [self registerRemote];
@@ -114,9 +117,24 @@
     }
     
 }
+-(void)bindToken
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        EMError *err =   [[EMClient sharedClient] bindDeviceToken:_token];
+        NSLog(@"bind err = %@",err.errorDescription);
+    });
+
+}
+-(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [application registerForRemoteNotifications];
+    NSLog(@"xx");
+}
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+  
+    _token = deviceToken;
+    [self bindToken];
 }
 
 // 注册deviceToken失败

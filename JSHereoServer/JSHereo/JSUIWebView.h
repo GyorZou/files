@@ -11,5 +11,6 @@
 @interface JSUIWebView : JSWebView<UIWebViewDelegate>
 {
     UIWebView * _webView;
+    
 }
 @end
