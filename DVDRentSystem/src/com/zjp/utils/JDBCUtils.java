@@ -1,5 +1,9 @@
 package com.zjp.utils;
 
+import java.util.Date;
+
+
+
 /**
  * @author jp007
  *
@@ -35,5 +39,11 @@ public class JDBCUtils {
 		
 		return db;
 	}
+	
+	public static void log(String log) {
+		Date date =new Date();
+		System.out.println(date+":"+log);
+	}
+	
 
 }
