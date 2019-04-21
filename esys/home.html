@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>home</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			body {
+				min-width: 600px;
+			}
+			
+			.articles {
+				padding-left: 30px;
+			}
+			
+			.selected {
+				background-color: white;
+				color: red;
+			}
+			
+			.selected a {
+				color: red;
+			}
+			
+			.left-menu {
+				position: fixed;
+				background-color: white;
+				z-index: 999;
+				width: 200px;
+				height: 100%;
+				overflow-x: auto;
+				overflow-y: auto;
+				border-right: 0.5px solid ghostwhite;
+				-webkit-transition: -webkit-transform 250ms ease;
+				-moz-transition: -moz-transform 250ms ease;
+				-o-transition: -o-transform 250ms ease;
+				transition: transform 250ms ease;
+			}
+			
+			.left-menu nav {
+				margin-right: 0.5px;
+			}
+			
+			.right-body {
+				position: relative;
+				/*z-index: -99;*/
+				margin-left: 200px;
+				background-color: lavender;
+				-webkit-transition: -webkit-transform 250ms ease;
+				-moz-transition: -moz-transform 250ms ease;
+				-o-transition: -o-transform 250ms ease;
+				transition: transform 250ms ease;
+			}
+			
+			.menu-hide {
+				left: -200px;
+			}
+			
+			.body-full {
+				margin-left: 0px;
+			}
+			#menu-swicher{
+				cursor: pointer;
+				position: fixed;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="main">
+			<div class="left-menu">
+				<nav role="navigation" class="nav nav-default">
+
+					<ul class="nav summary ">
+
+						<li class="chapter-root " data-level="1.1" data-path="../">
+
+							<a href="../">
+
+								系统简介
+
+							</a>
+
+						</li>
+
+						<li class="chapter-root " data-level="1.2" data-path="../chang-jian-wen-ti2.html">
+
+							<a data-toggle="collapse" data-target="#part-1">
+
+								活动管理
+								<span class="pull-right glyphicon glyphicon-chevron-right "></span>
+
+							</a>
+
+							<ul id="part-1" class="nav articles collapse">
+
+								<li class="chapter selected" data-level="1.2.1" data-path="zhang-hao-xiang-guan.html">
+
+									<a href="#">
+
+										活动列表
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.2" data-path="qi-ta.html">
+
+									<a href="#">
+
+										分类活动列表
+
+									</a>
+
+								</li>
+
+								<li class="chapter active" data-level="1.2.3" data-path="gui-ze.html">
+
+									<a href="#">
+
+										轮播图模板管理
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.4" data-path="jin-zhi-jie-ru-lie-biao.html">
+
+									<a href="#">
+
+										报名管理
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.5" data-path="jin-zhi-jie-ru-lie-biao.html">
+
+									<a href="#">
+
+										规则管理
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.4" data-path="jin-zhi-jie-ru-lie-biao.html">
+
+									<a href="#">
+
+										礼物管理
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.4" data-path="jin-zhi-jie-ru-lie-biao.html">
+
+									<a href="#">
+
+										赞助管理
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.4" data-path="jin-zhi-jie-ru-lie-biao.html">
+
+									<a href="#">
+
+										客服管理
+
+									</a>
+
+								</li>
+
+								<li class="chapter " data-level="1.2.4" data-path="jin-zhi-jie-ru-lie-biao.html">
+
+									<a href="#">
+
+										活动统计
+
+									</a>
+
+								</li>
+
+							</ul>
+
+						</li>
+
+				</nav>
+			</div>
+			<div class="right-body">
+				<div class="content">
+					<nav class="navbar navbar-default">
+						<div class="navbar-header">
+							<div class="navbar-brand" id="menu-swicher"  >
+								<span class="glyphicon glyphicon-list"></span>
+							</div>
+							<button class="navbar-toggle" data-toggle="collapse" data-target="#nav-list">
+								<span class="glyphicon glyphicon-cog"></span>
+						   </button>
+						</div>
+						<div class="collapse navbar-collapse" id="nav-list">
+							<ul class="nav navbar-nav navbar-right ">
+								<li>
+									<a href="#123"><span class="glyphicon glyphicon-user"></span> 注册</a>
+								</li>
+								<li>
+									<a href="#"><span class="glyphicon glyphicon-log-in"></span> 退出</a>
+								</li>
+							</ul>
+						</div>
+
+					</nav>
+					asdasdasdasd
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		setTimeout(function() {
+			$('.chapter-root .collapse').collapse("show");
+		}, 3000);
+
+		$("#part-1").on("show.bs.collapse", function() {
+			console.log("show");
+			$(this).prev().children("span").addClass("glyphicon-chevron-down");
+		});
+		$("#part-1").on("hide.bs.collapse", function() {
+			$(this).prev().children("span").removeClass("glyphicon-chevron-down");
+		});
+
+		$("li.chapter").on("click", function() {
+			var loc = $(this).attr("data-path");
+			console.log("path=" + loc);
+			//
+		});
+		$("#menu-swicher").on("click", function() {
+			//swich
+			console.log("xxx");
+			$(".left-menu").toggleClass("menu-hide");
+			$(".right-body").toggleClass("body-full");
+		});
+	</script>
+
+</html>
