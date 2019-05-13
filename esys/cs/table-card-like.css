@@ -1,0 +1,59 @@
+@media only screen and (max-width: 800px) {
+	
+	/* Force table to not be like tables anymore */
+	.table-card-like {
+		border: none !important;
+	}
+	.table-card-like table, 
+	.table-card-like thead, 
+	.table-card-like tbody, 
+	.table-card-like th, 
+	.table-card-like td, 
+	.table-card-like tr { 
+		border: none ;
+		display: block; 
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.table-card-like thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	.table-card-like tr { 
+		border: 0.5px solid #ccc; 
+		border-radius: 5px;
+		margin-bottom: 30px;
+		}
+
+	.table-card-like td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 0.5px solid #eee; 
+		position: relative;
+		padding-left: 45%; 
+		white-space: normal;
+		text-align:center ;
+	}
+
+	.table-card-like td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+
+	/*
+	Label the data
+	*/
+	.table-card-like td:before { content: attr(data-title); }
+}
+	
+

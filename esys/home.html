@@ -4,27 +4,34 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>home</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="cs/table-card-like.css" />
+		<script src="cs/table-wraper.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css">
+			* {
+				font-size: 16px;
+			}
+
 			body {
 				min-width: 600px;
 			}
-			
+
 			.articles {
 				padding-left: 30px;
 			}
-			
+
 			.selected {
 				background-color: white;
 				color: red;
 			}
-			
+
 			.selected a {
 				color: red;
 			}
-			
+
 			.left-menu {
 				position: fixed;
 				background-color: white;
@@ -39,32 +46,37 @@
 				-o-transition: -o-transform 250ms ease;
 				transition: transform 250ms ease;
 			}
-			
+
 			.left-menu nav {
 				margin-right: 0.5px;
 			}
-			
+
 			.right-body {
 				position: relative;
 				/*z-index: -99;*/
 				margin-left: 200px;
-				background-color: lavender;
+
 				-webkit-transition: -webkit-transform 250ms ease;
 				-moz-transition: -moz-transform 250ms ease;
 				-o-transition: -o-transform 250ms ease;
 				transition: transform 250ms ease;
 			}
-			
+
 			.menu-hide {
 				left: -200px;
 			}
-			
+
 			.body-full {
 				margin-left: 0px;
 			}
-			#menu-swicher{
+
+			#menu-swicher {
 				cursor: pointer;
 				position: fixed;
+			}
+
+			.data-content {
+				margin: 10px;
 			}
 		</style>
 	</head>
@@ -198,12 +210,12 @@
 				<div class="content">
 					<nav class="navbar navbar-default">
 						<div class="navbar-header">
-							<div class="navbar-brand" id="menu-swicher"  >
+							<div class="navbar-brand" id="menu-swicher">
 								<span class="glyphicon glyphicon-list"></span>
 							</div>
 							<button class="navbar-toggle" data-toggle="collapse" data-target="#nav-list">
 								<span class="glyphicon glyphicon-cog"></span>
-						   </button>
+							</button>
 						</div>
 						<div class="collapse navbar-collapse" id="nav-list">
 							<ul class="nav navbar-nav navbar-right ">
@@ -217,7 +229,27 @@
 						</div>
 
 					</nav>
-					asdasdasdasd
+					<div class="data-title">
+						<h3 class="lead" style="margin-left: 10px;">这是标题</h5>
+					</div>
+					<div class="data-content" id="data-content">
+
+
+					</div>
+					<div class="page-info text-center">
+						<p class="text-muted">第3页，总共8页</p>
+
+						<ul class="pagination">
+							<li class="disabled"><a href="#">&laquo;</a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li class=""><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -248,6 +280,13 @@
 			$(".left-menu").toggleClass("menu-hide");
 			$(".right-body").toggleClass("body-full");
 		});
+		var headers = ["title1", "titl2", "title3"];
+		var rows = [
+			["1", "2", "3"],
+			["21", "22", "23"],
+			["31", "32", "33"],
+		];
+		$("#data-content").html(wrapTable(headers, rows));
 	</script>
 
 </html>

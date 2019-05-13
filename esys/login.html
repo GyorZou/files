@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="cs/login.css">
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	</head>
+	<body>
+		<div class="grad">
+			<div class="title">后台管理</div>
+			<div class="logindiv">
+				<form class="bs-example bs-example-form" role="form" onclick="checkLogin()" >
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon"> <span class="glyphicon glyphicon-user"></span></span>
+						<input type="text" class="form-control" name="username" placeholder="用户名">
+					</div>
+					<br>
+					<div class="input-group input-group-lg">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+						<input type="password" class="form-control" name="password" placeholder="请输入密码">
+					</div>
+					<br>
+					<div class="hint unhint" id="hint">
+						用户名或密码错误。
+					</div>
+					<div class="input-group input-group-lg" style="margin: 0 auto;width:100%;">
+						<button type="submit" class="buttonlarg btn btn-primary btn-lg" style="width:100%;">登陆</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script>
+			$("[name='username'] ,[name='password']").focus(function() {
+				$("#hint").addClass("unhint");
+			})
+			function checkLogin(){
+				if($("[name='username']").text == ""){
+					$("#hint").removeClass("unhint");
+				}
+			}
+		</script>
+	</body>
+</html>
